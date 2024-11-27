@@ -48,6 +48,7 @@
       text-decoration: none;
       color: #fff;
       font-weight: bold;
+      cursor: pointer;
       transition: color 0.3s;
     }
 
@@ -60,6 +61,9 @@
       flex: 1;
       padding: 20px;
       overflow-y: auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .content h2 {
@@ -91,14 +95,14 @@
   <div class="menu">
     <h1>Meus Mapas Mentais</h1>
     <ul>
-      <!-- Adicione links aqui -->
-      <li><a href="mapa.html">Mapa Mental 1</a></li>
-      <li><a href="mapa.html">Mapa Mental 2</a></li>
-      <li><a href="mapa.html">Mapa Mental 3</a></li>
-      <!-- Você pode continuar adicionando links -->
+      <!-- Adicione links com IDs únicos para identificar cada mapa -->
+      <li><a onclick="loadContent('mapa1.html')">Mapa Mental 1</a></li>
+      <li><a onclick="loadContent('mapa2.html')">Mapa Mental 2</a></li>
+      <li><a onclick="loadContent('mapa3.html')">Mapa Mental 3</a></li>
+      <!-- Continue adicionando mais links aqui -->
     </ul>
   </div>
-  <div class="content">
+  <div class="content" id="content">
     <h2>Bem-vindo!</h2>
     <p>
       Este é o espaço onde você pode acessar seus mapas mentais. Use o menu à esquerda para navegar pelos mapas que você está criando. 
@@ -107,5 +111,28 @@
       Personalize esta página como desejar e mantenha seus mapas organizados e fáceis de acessar.
     </p>
   </div>
+
+  <script>
+    // Função para carregar o conteúdo de um arquivo HTML na área de conteúdo
+    function loadContent(url) {
+      const contentDiv = document.getElementById('content');
+      contentDiv.innerHTML = '<p>Carregando...</p>'; // Mensagem enquanto carrega
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Erro ao carregar o mapa.');
+          }
+          return response.text();
+        })
+        .then(data => {
+          contentDiv.innerHTML = data; // Substitui o conteúdo pelo mapa carregado
+        })
+        .catch(error => {
+          contentDiv.innerHTML = `<p>Erro: Não foi possível carregar o conteúdo.</p>`;
+          console.error(error);
+        });
+    }
+  </script>
 </body>
 </html>
