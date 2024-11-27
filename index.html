@@ -28,6 +28,7 @@
       flex-direction: column;
       padding: 20px;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
     }
 
     .menu h1 {
@@ -54,6 +55,38 @@
 
     .menu ul li a:hover {
       color: #4c9aff;
+    }
+
+    .submenu {
+      display: none;
+      list-style: none;
+      padding-left: 15px;
+      margin-top: 5px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .submenu li {
+      margin: 5px 0;
+    }
+
+    .submenu li a {
+      font-weight: normal;
+      color: #ddd;
+    }
+
+    .submenu li a:hover {
+      color: #4c9aff;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Conteúdo principal */
@@ -95,17 +128,58 @@
   <div class="menu">
     <h1>Meus Mapas Mentais</h1>
     <ul>
-      <!-- Adicione links com IDs únicos para identificar cada mapa -->
-      <li><a onclick="loadContent('mapa.html')">Mapa Mental 1</a></li>
-      <li><a onclick="loadContent('mapa.html')">Mapa Mental 2</a></li>
-      <li><a onclick="loadContent('mapa.html')">Mapa Mental 3</a></li>
-      <!-- Continue adicionando mais links aqui -->
+      <!-- Disciplinas com submenus -->
+      <li>
+        <a onclick="toggleSubmenu('submenu-matematica')">Matemática</a>
+        <ul id="submenu-matematica" class="submenu">
+          <li><a onclick="loadContent('mapa1-matematica.html')">Mapa Mental 1</a></li>
+          <li><a onclick="loadContent('mapa2-matematica.html')">Mapa Mental 2</a></li>
+        </ul>
+      </li>
+      <li>
+        <a onclick="toggleSubmenu('submenu-portugues')">Português</a>
+        <ul id="submenu-portugues" class="submenu">
+          <li><a onclick="loadContent('mapa1-portugues.html')">Mapa Mental 1</a></li>
+          <li><a onclick="loadContent('mapa2-portugues.html')">Mapa Mental 2</a></li>
+        </ul>
+      </li>
+      <li>
+        <a onclick="toggleSubmenu('submenu-informatica')">Informática</a>
+        <ul id="submenu-informatica" class="submenu">
+          <li><a onclick="loadContent('mapa1-informatica.html')">Mapa Mental 1</a></li>
+          <li><a onclick="loadContent('mapa2-informatica.html')">Mapa Mental 2</a></li>
+        </ul>
+      </li>
+      <li>
+        <a onclick="toggleSubmenu('submenu-direito')">Direito</a>
+        <ul id="submenu-direito" class="submenu">
+          <li><a onclick="loadContent('mapa1-direito.html')">Mapa Mental 1</a></li>
+        </ul>
+      </li>
+      <li>
+        <a onclick="toggleSubmenu('submenu-quimica')">Química</a>
+        <ul id="submenu-quimica" class="submenu">
+          <li><a onclick="loadContent('mapa1-quimica.html')">Mapa Mental 1</a></li>
+        </ul>
+      </li>
+      <li>
+        <a onclick="toggleSubmenu('submenu-fisica')">Física</a>
+        <ul id="submenu-fisica" class="submenu">
+          <li><a onclick="loadContent('mapa1-fisica.html')">Mapa Mental 1</a></li>
+        </ul>
+      </li>
+      <li>
+        <a onclick="toggleSubmenu('submenu-historia')">História</a>
+        <ul id="submenu-historia" class="submenu">
+          <li><a onclick="loadContent('mapa1-historia.html')">Mapa Mental 1</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="content" id="content">
     <h2>Bem-vindo!</h2>
     <p>
-      Este é o espaço onde você pode acessar seus mapas mentais. Use o menu à esquerda para navegar pelos mapas que você está criando. 
+      Este é o espaço onde você pode acessar seus mapas mentais. Use o menu à esquerda para navegar pelas disciplinas e escolher o mapa que deseja visualizar.
     </p>
     <p>
       Personalize esta página como desejar e mantenha seus mapas organizados e fáceis de acessar.
@@ -113,6 +187,16 @@
   </div>
 
   <script>
+    // Função para mostrar/ocultar submenus com animação
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      if (submenu.style.display === 'block') {
+        submenu.style.display = 'none';
+      } else {
+        submenu.style.display = 'block';
+      }
+    }
+
     // Função para carregar o conteúdo de um arquivo HTML na área de conteúdo
     function loadContent(url) {
       const contentDiv = document.getElementById('content');
