@@ -1,222 +1,80 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mapas Mentais</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      height: 100vh;
-      background: linear-gradient(135deg, #4c9aff, #c4e0e5);
-      color: #333;
-    }
-
-    /* Menu lateral */
-    .menu {
-      width: 250px;
-      background: #333;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-      overflow-y: auto;
-    }
-
-    .menu h1 {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .menu ul {
-      list-style: none;
-    }
-
-    .menu ul li {
-      margin: 10px 0;
-    }
-
-    .menu ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-
-    .menu ul li a:hover {
-      color: #4c9aff;
-    }
-
-    .submenu {
-      display: none;
-      list-style: none;
-      padding-left: 15px;
-      margin-top: 5px;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .submenu li {
-      margin: 5px 0;
-    }
-
-    .submenu li a {
-      font-weight: normal;
-      color: #ddd;
-    }
-
-    .submenu li a:hover {
-      color: #4c9aff;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Conteúdo principal */
-    .content {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .content h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    .content p {
-      line-height: 1.6;
-    }
-
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .menu {
-        width: 200px;
-      }
-
-      .menu h1 {
-        font-size: 1.2em;
-      }
-
-      .content h2 {
-        font-size: 1.5em;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .login-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="menu">
-    <h1>Meus Mapas Mentais</h1>
-    <ul>
-      <!-- Disciplinas com submenus -->
-      <li>
-        <a onclick="toggleSubmenu('submenu-matematica')">Matemática</a>
-        <ul id="submenu-matematica" class="submenu">
-          <li><a onclick="loadContent('mapa.html')">Mapa CD</a></li>
-          <li><a onclick="loadContent('mat.html')">Mat</a></li>
-        </ul>
-      </li>
-      <li>
-        <a onclick="toggleSubmenu('submenu-portugues')">Português</a>
-        <ul id="submenu-portugues" class="submenu">
-          <li><a onclick="loadContent('mapa1-portugues.html')">Mapa Mental 1</a></li>
-          <li><a onclick="loadContent('mapa2-portugues.html')">Mapa Mental 2</a></li>
-        </ul>
-      </li>
-      <li>
-        <a onclick="toggleSubmenu('submenu-informatica')">Informática</a>
-        <ul id="submenu-informatica" class="submenu">
-          <li><a onclick="loadContent('mapa1-informatica.html')">Mapa Mental 1</a></li>
-          <li><a onclick="loadContent('mapa2-informatica.html')">Mapa Mental 2</a></li>
-        </ul>
-      </li>
-      <li>
-        <a onclick="toggleSubmenu('submenu-direito')">Direito</a>
-        <ul id="submenu-direito" class="submenu">
-          <li><a onclick="loadContent('mapa1-direito.html')">Mapa Mental 1</a></li>
-        </ul>
-      </li>
-      <li>
-        <a onclick="toggleSubmenu('submenu-quimica')">Química</a>
-        <ul id="submenu-quimica" class="submenu">
-          <li><a onclick="loadContent('mapa1-quimica.html')">Mapa Mental 1</a></li>
-        </ul>
-      </li>
-      <li>
-        <a onclick="toggleSubmenu('submenu-fisica')">Física</a>
-        <ul id="submenu-fisica" class="submenu">
-          <li><a onclick="loadContent('mapa1-fisica.html')">Mapa Mental 1</a></li>
-        </ul>
-      </li>
-      <li>
-        <a onclick="toggleSubmenu('submenu-historia')">História</a>
-        <ul id="submenu-historia" class="submenu">
-          <li><a onclick="loadContent('mapa1-historia.html')">Mapa Mental 1</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <div class="content" id="content">
-    <h2>Bem-vindo!</h2>
-    <p>
-      Este é o espaço onde você pode acessar seus mapas mentais. Use o menu à esquerda para navegar pelas disciplinas e escolher o mapa que deseja visualizar.
-    </p>
-    <p>
-      Personalize esta página como desejar e mantenha seus mapas organizados e fáceis de acessar.
-    </p>
-  </div>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="button" onclick="validateLogin()">Login</button>
+        </form>
+        <p class="error" id="errorMessage"></p>
+    </div>
 
-  <script>
-    // Função para mostrar/ocultar submenus com animação
-    function toggleSubmenu(id) {
-      const submenu = document.getElementById(id);
-      if (submenu.style.display === 'block') {
-        submenu.style.display = 'none';
-      } else {
-        submenu.style.display = 'block';
-      }
-    }
+    <script>
+        // Usuário e senha predefinidos
+        const correctUsername = "admin";
+        const correctPassword = "12345";
 
-    // Função para carregar o conteúdo de um arquivo HTML na área de conteúdo
-    function loadContent(url) {
-      const contentDiv = document.getElementById('content');
-      contentDiv.innerHTML = '<p>Carregando...</p>'; // Mensagem enquanto carrega
+        function validateLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("errorMessage");
 
-      fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Erro ao carregar o mapa.');
-          }
-          return response.text();
-        })
-        .then(data => {
-          contentDiv.innerHTML = data; // Substitui o conteúdo pelo mapa carregado
-        })
-        .catch(error => {
-          contentDiv.innerHTML = `<p>Erro: Não foi possível carregar o conteúdo.</p>`;
-          console.error(error);
-        });
-    }
-  </script>
+            // Validação simples
+            if (username === correctUsername && password === correctPassword) {
+                // Redireciona para a página correta
+                window.location.href = "mapa.html";
+            } else {
+                // Exibe mensagem de erro
+                errorMessage.textContent = "Usuário ou senha incorretos!";
+            }
+        }
+    </script>
 </body>
 </html>
