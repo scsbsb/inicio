@@ -57,17 +57,29 @@
     </div>
 
     <script>
-        // Usuário e senha predefinidos
-        const correctUsername = "admin";
-        const correctPassword = "12345";
+        // Hash do nome de usuário e senha (gerado com SHA-256)
+        const storedUsernameHash = "e1c3c2f4a8b50559efcd52c3b02dbfba6f4778cce6ed8f93b2b9fa38580a1a1b"; // Hash de "admin"
+        const storedPasswordHash = "5994471abb01112afcc18159f6cc74b4f511b99806e2b975297aaef9d49ea4e8"; // Hash de "12345"
 
-        function validateLogin() {
+        // Função de hashing (SHA-256)
+        async function hash(text) {
+            const msgUint8 = new TextEncoder().encode(text); // Codifica em UTF-8
+            const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // Hash da mensagem
+            const hashArray = Array.from(new Uint8Array(hashBuffer)); // Converte o buffer para byte array
+            return hashArray.map(b => b.toString(16).padStart(2, "0")).join(""); // Converte para string hexadecimal
+        }
+
+        async function validateLogin() {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
             const errorMessage = document.getElementById("errorMessage");
 
-            // Validação simples
-            if (username === correctUsername && password === correctPassword) {
+            // Gera os hashes do nome de usuário e senha informados
+            const usernameHash = await hash(username);
+            const passwordHash = await hash(password);
+
+            // Valida os hashes
+            if (usernameHash === storedUsernameHash && passwordHash === storedPasswordHash) {
                 // Redireciona para a página correta
                 window.location.href = "mapa.html";
             } else {
